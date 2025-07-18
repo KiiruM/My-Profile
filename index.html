@@ -818,38 +818,53 @@
                 text-align: center;
             }
 
+            /* Optimized Timeline for Mobile */
+            .timeline {
+                padding: 0 10px; /* Reduced horizontal padding for very small screens */
+            }
+
             .timeline::before {
-                left: 20px; /* Keep the line on the left */
+                left: 20px; /* Vertical line remains on the left */
                 transform: translateX(0);
             }
 
+            .timeline-item {
+                /* On mobile, stack date and content vertically */
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start; /* Align content to the left */
+                margin: 3rem 0; /* Maintain vertical spacing */
+                padding-left: 40px; /* Make space for the vertical line */
+            }
+
             .timeline-content {
-                width: calc(100% - 60px); /* Adjust width for smaller screens */
-                margin-left: 60px; /* Push content to the right of the line */
-                text-align: left !important;
+                width: 100%; /* Ensure content takes full available width within the item's padding */
+                margin-left: 0; /* No margin-left needed here, handled by item padding */
+                text-align: left; /* Ensure text is left-aligned */
+                padding: 1rem; /* Adjust padding for mobile */
+                margin-top: 1rem; /* Space between date and content */
+            }
+
+            /* Remove previous odd/even specific styles for timeline-content as they are now handled by general rules */
+            .timeline-item:nth-child(odd) .timeline-content,
+            .timeline-item:nth-child(even) .timeline-content {
+                text-align: left; /* Explicitly ensure left alignment */
             }
 
             .timeline-date {
-                position: absolute; /* Ensure correct positioning on mobile */
-                top: 0; /* Adjust top for mobile */
-                left: 0; /* Adjust left for mobile */
-                transform: translateY(0); /* Reset transform for mobile */
-                background: linear-gradient(45deg, #667eea, #764ba2); /* Bring back background for mobile */
+                position: relative; /* Make it flow with the document */
+                top: auto;
+                left: auto;
+                transform: none;
+                background: linear-gradient(45deg, #667eea, #764ba2);
                 color: white;
-                padding: 0.5rem 1rem;
-                border-radius: 25px;
+                padding: 0.4rem 0.9rem;
+                border-radius: 20px;
                 font-weight: 600;
-                font-size: 0.9rem;
+                font-size: 0.85rem;
                 white-space: nowrap;
                 z-index: 1;
-                margin-left: 20px; /* Align with timeline line */
-            }
-
-            .timeline-item:nth-child(odd) .timeline-date,
-            .timeline-item:nth-child(even) .timeline-date {
-                left: 20px; /* Align dates to the left for mobile */
-                right: auto;
-                text-align: left;
+                margin-left: -20px; /* Pull date bubble slightly left to overlap the line */
             }
 
             .gallery-grid {
