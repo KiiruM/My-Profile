@@ -8,6 +8,51 @@
     <meta name="keywords" content="Reuben Kiiru, Legal Professional, Corporate Law, Kenya Lawyer, Contract Management, Litigation Support, Technology Law, AI Law, Data Protection, Policy Advocacy">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
+        /* CSS Variables for Dark Mode */
+        :root {
+            --primary-bg: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --hero-bg: linear-gradient(135deg, rgba(102, 126, 234, 0.9) 0%, rgba(118, 75, 162, 0.9) 100%);
+            --text-color: #333;
+            --heading-color: #2d3748;
+            --section-bg-light: #f8fafc;
+            --section-bg-dark: white;
+            --card-bg: white;
+            --card-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            --nav-bg: rgba(255, 255, 255, 0.95);
+            --nav-text: #333;
+            --footer-bg: #1a202c;
+            --footer-text: white;
+            --contact-bg: #2d3748;
+            --contact-text: white;
+            --input-bg: rgba(255,255,255,0.1);
+            --input-border: rgba(255,255,255,0.2);
+            --input-placeholder: rgba(255,255,255,0.6);
+            --skill-bar-bg: #e2e8f0;
+            --timeline-date-color: #4a5568;
+        }
+
+        body.dark-mode {
+            --primary-bg: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
+            --hero-bg: linear-gradient(135deg, rgba(26, 32, 44, 0.9) 0%, rgba(45, 55, 72, 0.9) 100%);
+            --text-color: #e2e8f0;
+            --heading-color: #e2e8f0;
+            --section-bg-light: #2d3748;
+            --section-bg-dark: #1a202c;
+            --card-bg: #2a3340;
+            --card-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            --nav-bg: rgba(26, 32, 44, 0.95);
+            --nav-text: #e2e8f0;
+            --footer-bg: #000;
+            --footer-text: #e2e8f0;
+            --contact-bg: #1a202c;
+            --contact-text: #e2e8f0;
+            --input-bg: rgba(255,255,255,0.05);
+            --input-border: rgba(255,255,255,0.1);
+            --input-placeholder: rgba(255,255,255,0.4);
+            --skill-bar-bg: #4a5568;
+            --timeline-date-color: #e2e8f0;
+        }
+
         /* General Styles */
         * {
             margin: 0;
@@ -17,10 +62,11 @@
 
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: #333;
+            background: var(--primary-bg);
+            color: var(--text-color);
             line-height: 1.6;
             overflow-x: hidden;
+            transition: background 0.5s ease, color 0.5s ease;
         }
 
         .container {
@@ -35,8 +81,17 @@
             display: flex;
             align-items: center;
             position: relative;
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.9) 0%, rgba(118, 75, 162, 0.9) 100%);
+            background: var(--hero-bg);
             overflow: hidden;
+        }
+
+        #star-canvas { /* Canvas for waves */
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
         }
 
         .hero::before {
@@ -48,6 +103,7 @@
             bottom: 0;
             background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><defs><pattern id="grid" width="50" height="50" patternUnits="userSpaceOnUse"><path d="M 50 0 L 0 0 0 50" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1"/></pattern></defs><rect width="100%" height="100%" fill="url(%23grid)"/></svg>');
             animation: float 20s ease-in-out infinite;
+            z-index: 1; /* Ensure grid is behind content but above waves */
         }
 
         @keyframes float {
@@ -154,12 +210,12 @@
             top: 0;
             left: 0;
             right: 0;
-            background: rgba(255, 255, 255, 0.95);
+            background: var(--nav-bg);
             backdrop-filter: blur(10px);
             z-index: 1000;
             padding: 1rem 0;
             transform: translateY(-100%);
-            transition: transform 0.3s ease;
+            transition: transform 0.3s ease, background 0.5s ease;
         }
 
         .nav.visible {
@@ -175,17 +231,19 @@
         .nav-logo {
             font-size: 1.5rem;
             font-weight: 700;
-            color: #333;
+            color: var(--nav-text);
+            transition: color 0.5s ease;
         }
 
         .nav-links {
             display: flex;
             list-style: none;
             gap: 2rem;
+            align-items: center; /* Align items including the toggle button */
         }
 
         .nav-links a {
-            color: #333;
+            color: var(--nav-text);
             text-decoration: none;
             font-weight: 500;
             transition: color 0.3s ease;
@@ -195,10 +253,34 @@
             color: #667eea;
         }
 
+        .dark-mode-toggle {
+            background: none;
+            border: none;
+            color: var(--nav-text);
+            font-size: 1.2rem;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 50%;
+            transition: background 0.3s ease, color 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .dark-mode-toggle:hover {
+            background: rgba(0,0,0,0.05);
+        }
+
+        body.dark-mode .dark-mode-toggle:hover {
+            background: rgba(255,255,255,0.1);
+        }
+
+
         /* Sections */
         .section {
             padding: 100px 0;
             position: relative;
+            transition: background 0.5s ease, color 0.5s ease;
         }
 
         .section-title {
@@ -206,8 +288,9 @@
             font-size: 2.5rem;
             font-weight: 700;
             margin-bottom: 3rem;
-            color: #2d3748;
+            color: var(--heading-color);
             position: relative;
+            transition: color 0.5s ease;
         }
 
         .section-title::after {
@@ -224,7 +307,7 @@
 
         /* About Section */
         .about {
-            background: #f8fafc;
+            background: var(--section-bg-light);
         }
 
         .about-content {
@@ -237,7 +320,7 @@
         .about-image {
             width: 300px;
             height: 400px;
-            background: linear-gradient(45deg, #667eea, #764ba2);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             border-radius: 20px;
             display: flex;
             align-items: center;
@@ -268,18 +351,20 @@
         .about-text {
             font-size: 1.1rem;
             line-height: 1.8;
-            color: #4a5568;
+            color: var(--text-color);
+            transition: color 0.5s ease;
         }
 
         .about-text h3 {
-            color: #2d3748;
+            color: var(--heading-color);
             margin-bottom: 1rem;
             font-size: 1.5rem;
+            transition: color 0.5s ease;
         }
 
         /* Experience Section */
         .experience {
-            background: white;
+            background: var(--section-bg-dark);
         }
 
         .timeline {
@@ -321,11 +406,11 @@
         .timeline-content {
             position: relative;
             width: calc(50% - 60px); /* Increased width */
-            background: white;
+            background: var(--card-bg);
             padding: 2rem;
             border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: var(--card-shadow);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.5s ease;
         }
 
         .timeline-content:hover {
@@ -338,13 +423,14 @@
             top: 50%;
             transform: translateY(-50%);
             background: none; /* Removed background */
-            color: #4a5568; /* Made color less prominent */
+            color: var(--timeline-date-color);
             padding: 0; /* Removed padding */
             border-radius: 0; /* Removed border-radius */
             font-weight: 400; /* Made font lighter */
             font-size: 0.8rem; /* Made font smaller */
             white-space: nowrap;
             z-index: 1;
+            transition: color 0.5s ease;
         }
 
         .timeline-item:nth-child(odd) .timeline-date {
@@ -359,7 +445,7 @@
 
         /* Skills Section */
         .skills {
-            background: #f8fafc;
+            background: var(--section-bg-light);
         }
 
         .skills-grid {
@@ -370,11 +456,11 @@
         }
 
         .skill-category {
-            background: white;
+            background: var(--card-bg);
             padding: 2rem;
             border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease;
+            box-shadow: var(--card-shadow);
+            transition: transform 0.3s ease, background 0.5s ease;
         }
 
         .skill-category:hover {
@@ -382,12 +468,13 @@
         }
 
         .skill-category h3 {
-            color: #2d3748;
+            color: var(--heading-color);
             margin-bottom: 1.5rem;
             font-size: 1.4rem;
             display: flex;
             align-items: center;
             gap: 0.5rem;
+            transition: color 0.5s ease;
         }
 
         .skill-category i {
@@ -404,15 +491,17 @@
             justify-content: space-between;
             margin-bottom: 0.5rem;
             font-weight: 600;
-            color: #4a5568;
+            color: var(--text-color);
+            transition: color 0.5s ease;
         }
 
         .skill-bar {
             height: 8px;
-            background: #e2e8f0;
+            background: var(--skill-bar-bg);
             border-radius: 4px;
             overflow: hidden;
             position: relative;
+            transition: background 0.5s ease;
         }
 
         .skill-progress {
@@ -441,7 +530,7 @@
 
         /* Education Section */
         .education {
-            background: white;
+            background: var(--section-bg-dark);
         }
 
         .education-grid {
@@ -498,7 +587,7 @@
 
         /* AI & Research Section */
         .ai-research {
-            background: #f8fafc;
+            background: var(--section-bg-light);
         }
 
         .ai-research-content {
@@ -509,11 +598,11 @@
         }
 
         .ai-card {
-            background: white;
+            background: var(--card-bg);
             padding: 2rem;
             border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease;
+            box-shadow: var(--card-shadow);
+            transition: transform 0.3s ease, background 0.5s ease;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -533,12 +622,14 @@
         .ai-card h3 {
             font-size: 1.3rem;
             margin-bottom: 0.5rem;
-            color: #2d3748;
+            color: var(--heading-color);
+            transition: color 0.5s ease;
         }
 
         .ai-card p {
-            color: #4a5568;
+            color: var(--text-color);
             margin-bottom: 1rem;
+            transition: color 0.5s ease;
         }
 
         .ai-card a {
@@ -558,7 +649,7 @@
 
         /* Gallery Section */
         .gallery {
-            background: white;
+            background: var(--section-bg-dark);
         }
 
         .gallery-grid {
@@ -569,11 +660,11 @@
         }
 
         .gallery-item {
-            background: #f8fafc;
+            background: var(--card-bg);
             border-radius: 15px;
             overflow: hidden;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: var(--card-shadow);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.5s ease;
         }
 
         .gallery-item:hover {
@@ -591,15 +682,17 @@
 
         .gallery-item-caption {
             padding: 1rem;
-            color: #4a5568;
+            color: var(--text-color);
             font-size: 0.9rem;
             text-align: center;
+            transition: color 0.5s ease;
         }
 
         /* Contact Section */
         .contact {
-            background: #2d3748;
-            color: white;
+            background: var(--contact-bg);
+            color: var(--contact-text);
+            transition: background 0.5s ease, color 0.5s ease;
         }
 
         .contact-content {
@@ -612,7 +705,8 @@
         .contact-info h3 {
             font-size: 1.5rem;
             margin-bottom: 1rem;
-            color: #e2e8f0;
+            color: var(--contact-text);
+            transition: color 0.5s ease;
         }
 
         .contact-info p {
@@ -626,7 +720,7 @@
             gap: 1rem;
             margin-bottom: 1rem;
             padding: 1rem;
-            background: rgba(255,255,255,0.1);
+            background: var(--input-bg);
             border-radius: 10px;
             transition: background 0.3s ease;
         }
@@ -641,10 +735,11 @@
         }
 
         .contact-form {
-            background: rgba(255,255,255,0.1);
+            background: var(--input-bg);
             padding: 2rem;
             border-radius: 15px;
             backdrop-filter: blur(10px);
+            transition: background 0.5s ease;
         }
 
         .form-group {
@@ -661,16 +756,16 @@
         .form-group textarea {
             width: 100%;
             padding: 0.8rem;
-            border: 2px solid rgba(255,255,255,0.2);
+            border: 2px solid var(--input-border);
             border-radius: 8px;
-            background: rgba(255,255,255,0.1);
-            color: white;
-            transition: border-color 0.3s ease;
+            background: var(--input-bg);
+            color: var(--contact-text);
+            transition: border-color 0.3s ease, background 0.5s ease, color 0.5s ease;
         }
 
         .form-group input::placeholder,
         .form-group textarea::placeholder {
-            color: rgba(255,255,255,0.6);
+            color: var(--input-placeholder);
         }
 
         .form-group input:focus,
@@ -697,10 +792,11 @@
 
         /* Footer */
         .footer {
-            background: #1a202c;
-            color: white;
+            background: var(--footer-bg);
+            color: var(--footer-text);
             text-align: center;
             padding: 2rem 0;
+            transition: background 0.5s ease, color 0.5s ease;
         }
 
         .footer p {
@@ -734,21 +830,26 @@
             }
 
             .timeline-date {
-                left: 20px; /* Align date with the line on small screens */
-                transform: translateY(-50%);
-                text-align: left;
-                right: auto; /* Reset right property */
+                position: absolute; /* Ensure correct positioning on mobile */
+                top: 0; /* Adjust top for mobile */
+                left: 0; /* Adjust left for mobile */
+                transform: translateY(0); /* Reset transform for mobile */
                 background: linear-gradient(45deg, #667eea, #764ba2); /* Bring back background for mobile */
                 color: white;
                 padding: 0.5rem 1rem;
                 border-radius: 25px;
                 font-weight: 600;
                 font-size: 0.9rem;
+                white-space: nowrap;
+                z-index: 1;
+                margin-left: 20px; /* Align with timeline line */
             }
 
+            .timeline-item:nth-child(odd) .timeline-date,
             .timeline-item:nth-child(even) .timeline-date {
-                left: 20px; /* Ensure even items also align left on mobile */
+                left: 20px; /* Align dates to the left for mobile */
                 right: auto;
+                text-align: left;
             }
 
             .gallery-grid {
@@ -772,6 +873,11 @@
                     <li><a href="#ai-research">AI & Research</a></li>
                     <li><a href="#gallery">Gallery</a></li>
                     <li><a href="#contact">Contact</a></li>
+                    <li>
+                        <button id="darkModeToggle" class="dark-mode-toggle" aria-label="Toggle dark mode">
+                            <i class="fas fa-moon"></i>
+                        </button>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -779,6 +885,7 @@
 
     <!-- Hero Section -->
     <section class="hero" id="home">
+        <canvas id="star-canvas"></canvas> <!-- Canvas for waves -->
         <div class="container">
             <div class="hero-content">
                 <h1>Reuben Kiiru</h1>
@@ -895,7 +1002,7 @@
                         <h3>Legal Intern</h3>
                         <h4>Centre for Rights Education and Awareness Kenya (CREAW)</h4>
                         <ul>
-                            <li>Managed case documentation and conducted client interviews</li>
+                            <li>Managed case documentation and client interviews</li>
                             <li>Assisted in court representation for vulnerable clients</li>
                             <li>Supported alternative dispute resolution processes</li>
                             <li>Drafted legal correspondence and macro-level court documents</li>
@@ -1141,43 +1248,43 @@
             <h2 class="section-title">Policy Advocacy in Action</h2>
             <div class="gallery-grid">
                 <div class="gallery-item">
-                    <img src="https://drive.google.com/uc?export=download&id=1Cil4QF6VxTeDLUGgtXcD7Jyl6Sk6BXQ4" alt="Group of legal professionals">
+                    <img src="./images/IMG_0013.jpg" alt="Group of legal professionals">
                     <div class="gallery-item-caption">Engaging with peers at a legal conference.</div>
                 </div>
                 <div class="gallery-item">
-                    <img src="https://drive.google.com/uc?export=download&id=1lnf86zJaT_2wPqexF49N1sIlYCtW2nmG" alt="Group at Generation Equality Forum">
+                    <img src="./images/IMG-20220609-WA0111.jpg" alt="Group at Generation Equality Forum">
                     <div class="gallery-item-caption">Participating in the Generation Equality Forum.</div>
                 </div>
                 <div class="gallery-item">
-                    <img src="https://drive.google.com/uc?export=download&id=1Fp_DrdhQ-48LZbFeMrOhEbvtQi7YHoQO" alt="Speaking at a panel discussion">
+                    <img src="./images/IMG-20230503-WA0041.jpg" alt="Speaking at a panel discussion">
                     <div class="gallery-item-caption">Presenting insights during a legal tech panel.</div>
                 </div>
                 <div class="gallery-item">
-                    <img src="https://drive.google.com/uc?export=download&id=1gKOdTUrCHjaweLVgTDRnUcvSo1qxt_d6" alt="Team photo in a studio">
+                    <img src="./images/IMG-20220325-WA0152.jpg" alt="Team photo in a studio">
                     <div class="gallery-item-caption">Team collaboration for legal advocacy.</div>
                 </div>
                 <div class="gallery-item">
-                    <img src="https://drive.google.com/uc?export=download&id=18vcX8ut1JYKv08UN-4b30yUnTFIb570W" alt="Group visit to Spice FM">
+                    <img src="./images/IMG-20220325-WA0167.jpg" alt="Group visit to Spice FM">
                     <div class="gallery-item-caption">Promoting legal awareness at Spice FM.</div>
                 </div>
                 <div class="gallery-item">
-                    <img src="https://drive.google.com/uc?export=download&id=1bkh7IC7vb9VsZkJmlLNuopX_GTMu5Mnj" alt="Linda Haki Project outreach">
+                    <img src="./images/IMG-20220611-WA0020.jpg" alt="Linda Haki Project outreach">
                     <div class="gallery-item-caption">Community outreach for Linda Haki Project.</div>
                 </div>
                 <div class="gallery-item">
-                    <img src="https://drive.google.com/uc?export=download&id=1lrAIizySTwFv4kuELnv-Bvx99TONhKx3" alt="At a business confederation event">
+                    <img src="./images/IMG_20230920_122844_346.jpg" alt="At a business confederation event">
                     <div class="gallery-item-caption">Networking at a Confederation of Chambers event.</div>
                 </div>
                 <div class="gallery-item">
-                    <img src="https://drive.google.com/uc?export=download&id=1UTz6Tz5_woUQQMQq7EsKH41ME6msu2D3" alt="At National Duka event">
+                    <img src="./images/IMG_20231123_143456_044.jpg" alt="At National Duka event">
                     <div class="gallery-item-caption">Supporting micro and small business initiatives.</div>
                 </div>
                 <div class="gallery-item">
-                    <img src="https://drive.google.com/uc?export=download&id=1gALzOHD8_UZCrOdS9NIkqQdl76S9Iy1v" alt="Attending ICANN meeting">
+                    <img src="./images/IMG_20221006_163043.jpg" alt="Attending ICANN meeting">
                     <div class="gallery-item-caption">Attending the ICANN DNS Forum.</div>
                 </div>
                 <div class="gallery-item">
-                    <img src="https://drive.google.com/uc?export=download&id=1F0-DK6UPkq5o2T_eIGHmgmLw3JOJff32" alt="At Africa DNS Forum">
+                    <img src="./images/IMG_20221005_132957.jpg" alt="At Africa DNS Forum">
                     <div class="gallery-item-caption">At the Africa DNS Forum in Nairobi.</div>
                 </div>
             </div>
@@ -1444,7 +1551,110 @@
             }, 100);
         });
 
-        // Added for debugging:
+        // Dark Mode Toggle Functionality
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        const currentTheme = localStorage.getItem('theme');
+
+        if (currentTheme) {
+            document.body.classList.add(currentTheme);
+            if (currentTheme === 'dark-mode') {
+                darkModeToggle.querySelector('i').classList.replace('fa-moon', 'fa-sun');
+            }
+        }
+
+        darkModeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            let theme = 'light-mode';
+            if (document.body.classList.contains('dark-mode')) {
+                theme = 'dark-mode';
+                darkModeToggle.querySelector('i').classList.replace('fa-moon', 'fa-sun');
+            } else {
+                darkModeToggle.querySelector('i').classList.replace('fa-sun', 'fa-moon');
+            }
+            localStorage.setItem('theme', theme);
+        });
+
+        // Interactive Wave Animation in Hero Section
+        const canvas = document.getElementById('star-canvas');
+        const ctx = canvas.getContext('2d');
+        let waves = [];
+        const numWaves = 3; // Number of distinct waves
+
+        class Wave {
+            constructor(amplitude, frequency, speed, baseColor, targetAlpha, phaseOffset = 0) {
+                this.amplitude = amplitude; // Height of the wave
+                this.frequency = frequency; // How many peaks/troughs
+                this.speed = speed;         // How fast it moves horizontally
+                this.baseColor = baseColor; // Base color (e.g., 'rgb(255, 107, 107)')
+                this.targetAlpha = targetAlpha; // Target opacity
+                this.currentAlpha = 0;      // Current opacity for gradual appearance
+                this.phase = phaseOffset;   // Starting phase for offset waves
+            }
+
+            draw(ctx, canvasWidth, canvasHeight) {
+                ctx.beginPath();
+                // Calculate the wave's center Y to be closer to the bottom
+                // 150px from the bottom, plus half of the max amplitude to ensure it's fully visible
+                const waveCenterY = canvasHeight - 150 - this.amplitude; 
+                
+                ctx.moveTo(0, waveCenterY); // Start from the left edge at the calculated Y
+
+                for (let x = 0; x <= canvasWidth; x += 10) { // Draw points across the width
+                    const y = waveCenterY + Math.sin(x * this.frequency + this.phase) * this.amplitude;
+                    ctx.lineTo(x, y);
+                }
+
+                ctx.lineTo(canvasWidth, canvasHeight); // Connect to bottom right
+                ctx.lineTo(0, canvasHeight);           // Connect to bottom left
+                ctx.closePath();
+                ctx.fillStyle = `${this.baseColor}, ${this.currentAlpha.toFixed(2)})`; // Use currentAlpha
+                ctx.fill();
+            }
+
+            update() {
+                this.phase += this.speed; // Advance the phase for movement
+
+                // Gradually increase currentAlpha towards targetAlpha
+                if (this.currentAlpha < this.targetAlpha) {
+                    this.currentAlpha += 0.005; // Small increment for gradual fade-in
+                    this.currentAlpha = Math.min(this.currentAlpha, this.targetAlpha); // Cap at target alpha
+                }
+            }
+        }
+
+        function initWaves() {
+            waves = [];
+            // Define wave properties with baseColor (rgb) and targetAlpha
+            waves.push(new Wave(30, 0.008, 0.02, 'rgb(255, 107, 107', 0.3)); // Main wave, more opaque
+            waves.push(new Wave(20, 0.012, 0.03, 'rgb(255, 107, 107', 0.2, Math.PI / 2)); // Second wave, slightly faster, offset
+            waves.push(new Wave(15, 0.006, 0.015, 'rgb(255, 107, 107', 0.15, Math.PI)); // Third wave, slower, more transparent
+        }
+
+        function animateWaves() {
+            requestAnimationFrame(animateWaves);
+            ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear canvas
+
+            // Draw waves from back to front (bottom to top visually)
+            for (let i = waves.length - 1; i >= 0; i--) {
+                waves[i].update();
+                waves[i].draw(ctx, canvas.width, canvas.height);
+            }
+        }
+
+        // Function to resize canvas and re-initialize waves
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            initWaves(); // Re-initialize waves when canvas resizes
+        }
+
+        // Event listeners for canvas and window load
+        window.addEventListener('resize', resizeCanvas);
+        window.addEventListener('load', () => {
+            resizeCanvas(); // Set initial canvas size and initialize waves
+            animateWaves(); // Start wave animation
+        });
+
         console.log("Script fully loaded and executed.");
     </script>
 </body>
